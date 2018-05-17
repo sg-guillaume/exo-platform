@@ -1,18 +1,18 @@
 <?php
+
 declare(strict_types=1);
-
-
 
 namespace App\Domain\Models;
 
+use App\Domain\Models\Interfaces\ExercisesInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Class Exercise
+ * Class Exercises
  * @package App\Domain\Models
  */
-class Exercise
+class Exercises implements ExercisesInterface
 {
     /**
      * @var UuidInterface
@@ -48,10 +48,10 @@ class Exercise
     /**
      * @var int
      */
-    private $lastreview;
+    private $lastReview;
 
     /**
-     * Exercise constructor.
+     * Exercises constructor.
      * @param $title
      * @param $author
      * @param $content
@@ -72,17 +72,76 @@ class Exercise
     }
 
     /**
-     * @param string $content
-     * @param string $answer
+     * @return UuidInterface
      */
-    public function updateExercise(
-        string $content,
-        string $answer
-    )   {
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthor(): string
+    {
+        return $this->author;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAnswer(): string
+    {
+        return $this->answer;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCreationDate(): int
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLastReview(): int
+    {
+        return $this->lastReview;
+    }
+
+    /**
+     * @param string $content
+     */
+    public function updateExercise(string $content)
+    {
         $this->content = $content;
-        $this->answer = $answer;
         $this->lastreview = time();
     }
 
-
+    /**
+     * @param string $answer
+     */
+    public function updateSolution(string $answer)
+    {
+        $this->answer = $answer;
+        $this->lastReview = time();
+    }
 }
